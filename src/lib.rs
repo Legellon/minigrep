@@ -18,8 +18,6 @@ impl Config {
         let filename = args[2].clone();
         let case_sensitive = env::var("CASE_INSENSITIVE").is_err();
 
-        println!("{}", case_sensitive);
-
         Ok(Config { query, filename, case_sensitive })
     }
 }
@@ -70,14 +68,14 @@ mod tests {
     use super::*;
 
     #[test]
-    fn should_find_line_by_case_sensitive() {
+    fn should_find_case_sensitive_line() {
         let query = "duct";
-        let contents = "Rust:\nsafe, fast, productive.\nPick three.\nDust tape.";
+        let contents = "Rust:\nsafe, fast, productive.\nPick three.\nDuct tape.";
         assert_eq!(vec!["safe, fast, productive."], search_case_sensitive(query, contents));
     }
 
     #[test]
-    fn should_find_line_by_case_insensitive() {
+    fn should_find_case_insensitive_line() {
         let query = "rUsT";
         let contents = "Rust:\nsafe, fast, productive.\nPick three.\nTrust me.";
         assert_eq!(vec!["Rust:", "Trust me."], search_case_insensitive(query, contents));
